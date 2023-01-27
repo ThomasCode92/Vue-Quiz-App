@@ -1,31 +1,30 @@
 <template>
   <div class="ctr">
-    <div class="questions-ctr">
-      <div class="progress">
-        <div class="bar"></div>
-        <div class="status">1 out of 3 questions answered</div>
-      </div>
-      <div class="single-question">
-        <div class="question">Sample Question 1</div>
-        <div class="answers">
-          <div class="answer">Sample Answer 1</div>
-          <div class="answer">Sample Answer 2</div>
-          <div class="answer">Sample Answer 3</div>
-          <div class="answer">Sample Answer 4</div>
-        </div>
-      </div>
-    </div>
-    <div class="result">
-      <div class="title">You got sample result 1!</div>
-      <div class="desc">Enter a short description here about the result.</div>
-    </div>
+    <Questions
+      v-if="questionsAnswered < questions.length"
+      :questions="questions"
+    />
+    <Result v-else />
     <button type="button" class="reset-btn">Reset</button>
   </div>
 </template>
 
 <script>
+import Questions from './components/Questions.vue';
+import Result from './components/Result.vue';
+
+import { data as quizData } from './data';
+
 export default {
   name: 'App',
+  components: { Questions, Result },
+  data() {
+    return {
+      questionsAnswered: 0,
+      questions: quizData.questions,
+      results: quizData.results,
+    };
+  },
 };
 </script>
 
